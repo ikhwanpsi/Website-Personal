@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrasi Mahasiswa</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: white;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 10px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .form-container {
+            width: 500px;
+            position: absolute;
+            top: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .form-container label {
+            color: black;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="date"],
+        .form-container input[type="number"],
+        .form-container textarea,
+        .form-container select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-container input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .form-container input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-container input[type="button"]:hover {
+            background-color: #45a049;
+        }
+
+        .form-container h2 {
+            color: black;
+            text-align: center;
+        }
+
+        #confirmation_details p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        #confirmation_details p strong {
+            display: inline-block;
+            width: 150px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+    <div style="width: 100vw; height: 100vh; position: relative;">
+        <img style="width: 100%; height: 100%; object-fit: cover; position: absolute;" src="images/bg.png" />
+        <div style="width: 100%; height: 130px; position: absolute; opacity: 0.60; background: #0D293E"></div>
+        <div style="width: 366px; height: 44px; left: 397px; top: 68px; position: absolute; color: white; font-size: 40px; font-family: Almarai; font-weight: 700; word-wrap: break-word">INDONESIA</div>
+        <div style="width: 366px; height: 44px; left: 397px; top: 24px; position: absolute; color: white; font-size: 40px; font-family: Almarai; font-weight: 700; word-wrap: break-word">UNIVERSITAS</div>
+        <div style="width: 110px; height: 44px; left: 686px; top: 24px; position: absolute; color: white; font-size: 40px; font-family: Almarai; font-weight: 700; word-wrap: break-word">LARI</div>
+        <img style="width: 162px; height: 130px; left: 0px; top: 0px; position: absolute" src="images/logo.png" />
+        <div style="width: 266px; height: 112px; left: 145px; top: 18px; position: absolute; color: #D9D9D9; font-size: 96px; font-family: Almarai; font-weight: 700; word-wrap: break-word">UNLI</div>
+        <div style="width: 108px; height: 0px; left: 378px; top: 11px; position: absolute; transform: rotate(90deg); transform-origin: 0 0; border: 1px white solid"></div>
+        <div class="form-container">
+            <h2>Pendaftaran Mahasiswa Baru</h2>
+            <form id="registration_form" method="post" action="pendaftaran.php" enctype="multipart/form-data">
+                <label for="nama">Nama Lengkap:</label>
+                <input type="text" id="nama" name="nama" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="nik">NIK:</label>
+                <input type="text" id="nik" name="nik" required>
+                
+                <label for="tanggal_lahir">Tanggal Lahir:</label>
+                <input type="date" id="tanggal_lahir" name="tanggal_lahir" required>
+                
+                <label for="jenis_kelamin">Jenis Kelamin:</label>
+                <input type="radio" id="laki_laki" name="jenis_kelamin" value="Laki-laki" required>
+                <label for="laki_laki">Laki-laki</label>
+                <input type="radio" id="perempuan" name="jenis_kelamin" value="Perempuan" required>
+                <label for="perempuan">Perempuan</label>
+                
+                <label for="agama">Agama:</label>
+                <input type="text" id="agama" name="agama" required>
+                
+                <label for="nomor_handphone">Nomor Handphone:</label>
+                <input type="text" id="nomor_handphone" name="nomor_handphone" required>
+                
+                <label for="alamat_rumah">Alamat Rumah:</label>
+                <textarea id="alamat_rumah" name="alamat_rumah" required></textarea>
+                
+                <label for="umur">Umur:</label>
+                <input type="number" id="umur" name="umur" required>
+                
+                <label for="program_studi">Program Studi:</label>
+                <select id="program_studi" name="program_studi" required>
+                    <option value="">Pilih Program Studi</option>
+                    <option value="Long Run">Long Run</option>
+                    <option value="Sprinter">Sprinter</option>
+                </select>
+                
+                <input type="hidden" name="confirm" value="1">
+                <input type="button" value="Daftar" id="submit_button">
+            </form>
+        </div>
+    </div>
+
+    <div id="confirmation_modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Konfirmasi Data</h2>
+            <div id="confirmation_details"></div>
+            <button id="confirm_button">Konfirmasi</button>
+            <button id="edit_button">Edit</button>
+            <button id="download_pdf_button">Download PDF</button>
+        </div>
+    </div>
+
+    <script>
+        function validateForm() {
+            var form = document.getElementById("registration_form");
+            var inputs = form.querySelectorAll("input[type=text], input[type=email], input[type=date], input[type=radio]:checked, textarea, select");
+            var isValid = true;
+            inputs.forEach(function(input) {
+                if (!input.value.trim()) {
+                    isValid = false;
+                    return;
+                }
+            });
+
+            if (!isValid) {
+                alert("Silakan lengkapi semua kolom sebelum melanjutkan.");
+            }
+            return isValid;
+        }
+
+        document.getElementById("submit_button").onclick = function() {
+            if (validateForm()) {
+                var form = document.getElementById("registration_form");
+                var confirmationDetails = document.getElementById("confirmation_details");
+                confirmationDetails.innerHTML = `
+                    <p><strong>Nama Lengkap:</strong> ${form.nama.value}</p>
+                    <p><strong>Email:</strong> ${form.email.value}</p>
+                    <p><strong>NIK:</strong> ${form.nik.value}</p>
+                    <p><strong>Tanggal Lahir:</strong> ${form.tanggal_lahir.value}</p>
+                    <p><strong>Jenis Kelamin:</strong> ${form.jenis_kelamin.value}</p>
+                    <p><strong>Agama:</strong> ${form.agama.value}</p>
+                    <p><strong>Nomor Handphone:</strong> ${form.nomor_handphone.value}</p>
+                    <p><strong>Alamat Rumah:</strong> ${form.alamat_rumah.value}</p>
+                    <p><strong>Umur:</strong> ${form.umur.value}</p>
+                    <p><strong>Program Studi:</strong> ${form.program_studi.value}</p>
+                `;
+                document.getElementById("confirmation_modal").style.display = "block";
+            }
+        };
+
+        document.getElementById("confirm_button").onclick = function() {
+            if (validateForm()) {
+                var confirmation = confirm("Yakin untuk melakukan konfirmasi?");
+                if (confirmation) {
+                    document.getElementById("registration_form").submit();
+                }
+            }
+        };
+
+        document.getElementById("edit_button").onclick = function() {
+            document.getElementById("confirmation_modal").style.display = "none";
+        };
+
+        document.getElementsByClassName("close")[0].onclick = function() {
+            document.getElementById("confirmation_modal").style.display = "none";
+        };
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("confirmation_modal")) {
+                document.getElementById("confirmation_modal").style.display = "none";
+            }
+        };
+
+        document.getElementById("download_pdf_button").onclick = function() {
+            var { jsPDF } = window.jspdf;
+            var doc = new jsPDF();
+            var confirmationDetails = document.getElementById("confirmation_details");
+            
+            var content = `
+                UNIVERSITAS LARI INDONESIA
+                
+                Nama Lengkap: ${document.getElementById('nama').value}
+                Email: ${document.getElementById('email').value}
+                NIK: ${document.getElementById('nik').value}
+                Tanggal Lahir: ${document.getElementById('tanggal_lahir').value}
+                Jenis Kelamin: ${document.querySelector('input[name="jenis_kelamin"]:checked').value}
+                Agama: ${document.getElementById('agama').value}
+                Nomor Handphone: ${document.getElementById('nomor_handphone').value}
+                Alamat Rumah: ${document.getElementById('alamat_rumah').value}
+                Umur: ${document.getElementById('umur').value}
+                Program Studi: ${document.getElementById('program_studi').value}
+                
+                Terima kasih telah mendaftar di Universitas Lari Indonesia. Kami akan memproses aplikasi Anda dan menghubungi Anda dalam waktu dekat.
+            `;
+            
+            doc.setFontSize(20);
+            doc.text("UNIVERSITAS LARI INDONESIA", 10, 10);
+            doc.setFontSize(12);
+            doc.text(content, 10, 30);
+            doc.save('registration_confirmation.pdf');
+        };
+    </script>
+</body>
+
+</html>

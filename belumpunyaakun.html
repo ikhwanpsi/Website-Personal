@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector('form').addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent default form submission
+                
+                // Get values from inputs
+                var email = document.querySelector('[name="email"]').value;
+                var username = document.querySelector('[name="username"]').value;
+                var password = document.querySelector('[name="password"]').value;
+                var confirmPassword = document.querySelector('[name="confirm_password"]').value;
+
+                // Check if all inputs are filled
+                if (email === '' || username === '' || password === '' || confirmPassword === '') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal mendaftar',
+                        text: 'Semua kolom harus diisi.',
+                        confirmButtonText: 'OK'
+                    });
+                    return; // Stop form submission
+                }
+
+                // Check if passwords match
+                if (password !== confirmPassword) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal mendaftar',
+                        text: 'Password dan Konfirmasi Password tidak cocok.',
+                        confirmButtonText: 'OK'
+                    });
+                    return; // Stop form submission
+                }
+
+                // Submit the form if validation passes
+                this.submit();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div style="width: 100%; height: 100%; position: relative; background: white">
+        <img style="width: 1728px; height: 1117px; left: 0px; top: 0px; position: absolute" src="images/bg.png" />
+        
+        <form action="buatakun.php" method="POST" style="position: absolute; width: 100%; height: 100%;">
+            <div
+                style="width: 552px; height: 70px; left: 294px; top: 401px; position: absolute; background: #D9D9D9; border-radius: 20px">
+            </div>
+            
+            <div
+                style="width: 552px; height: 70px; left: 864px; top: 401px; position: absolute; background: #D9D9D9; border-radius: 20px">
+            </div>
+            
+            <div
+                style="width: 351px; height: 82px; left: 689px; top: 692px; position: absolute; background: #0D293E; border-radius: 20px">
+            </div>
+            <div
+                style="width: 270px; height: 65px; left: 300px; top: 356px; position: absolute; color: #D9D9D9; font-size: 30px; font-family: Inter; font-weight: 300; word-wrap: break-word">
+                Email</div>
+            <input type="text" name="email" style="width: 535px; height: 65px; left: 290px; top: 400px; position: absolute; background: #D9D9D9; border-radius: 20px; padding: 10px; font-size: 20px;" placeholder="Enter your email">
+            <div
+                style="width: 270px; height: 65px; left: 870px; top: 539px; position: absolute; color: #D9D9D9; font-size: 30px; font-family: Inter; font-weight: 300; word-wrap: break-word">
+                Confirm Password</div>
+            <input type="password" name="confirm_password" style="width: 535px; height: 65px; left: 860px; top: 580px; position: absolute; background: #D9D9D9; border-radius: 20px; padding: 10px; font-size: 20px;" placeholder="Confirm password">
+            <div
+                style="width: 270px; height: 65px; left: 870px; top: 359px; position: absolute; color: #D9D9D9; font-size: 30px; font-family: Inter; font-weight: 300; word-wrap: break-word">
+                Username</div>
+            <input type="text" name="username" style="width: 535px; height: 65px; left: 860px; top: 400px; position: absolute; background: #D9D9D9; border-radius: 20px; padding: 10px; font-size: 20px;" placeholder="Enter your username">
+            <div
+                style="width: 270px; height: 65px; left: 300px; top: 540px; position: absolute; color: #D9D9D9; font-size: 30px; font-family: Inter; font-weight: 300; word-wrap: break-word">
+                Password</div>
+            <input type="password" name="password" style="width: 535px; height: 65px; left: 290px; top: 580px; position: absolute; background: #D9D9D9; border-radius: 20px; padding: 10px; font-size: 20px;" placeholder="Enter your password">
+            <!-- "Buat Akun" button -->
+            <button type="submit" style="width: 352px; height: 100px; left: 690px; top: 680px; position: absolute; background: #0D293E; border-radius: 20px; border: none; cursor: pointer; color: white; font-size: 36px; font-family: Inter; font-weight: 500; word-wrap: break-word;">
+                Buat Akun
+            </button>
+        </form>
+        
+        <img style="width: 174px; height: 270px; left: 777px; top: 57px; position: absolute" src="images/logo.png" />
+        <div
+            style="left: 764px; top: 271px; position: absolute; color: white; font-size: 50px; font-family: Almarai; font-weight: 700; word-wrap: break-word">
+            SIGNUP</div>
+        <div style="width: 413px; height: 90px; left: 658px; top: 807px; position: absolute; text-align: center">
+            <span
+                style="color: #D9D9D9; font-size: 30px; font-family: Inter; font-weight: 300; word-wrap: break-word">Sudah
+                punya akun?<br /></span>
+        </div>
+        <!-- "Masuk disini" button -->
+        <button onclick="window.location.href = 'masuk.html';"
+            style="width: 413px; height: 72px; left: 658px; top: 850px; position: absolute; background: #AE2828; border-radius: 20px; border: none; cursor: pointer;">
+            <div style="color: white; font-size: 30px; font-family: Inter; font-weight: 300;">Masuk disini!</div>
+        </button>
+    </div>
+</body>
+
+</html>

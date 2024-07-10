@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .header {
+            width: 100%;
+            height: 130px;
+            background: #0D293E;
+            opacity: 0.60;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .header-text {
+            position: absolute;
+            color: white;
+            font-size: 40px;
+            font-family: Almarai;
+            font-weight: 700;
+        }
+
+        .header-logo {
+            width: 162px;
+            height: 130px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .header-title {
+            position: absolute;
+            color: #D9D9D9;
+            font-size: 96px;
+            font-family: Almarai;
+            font-weight: 700;
+            top: 18px;
+            left: 145px;
+        }
+
+        .content {
+            position: absolute;
+            top: 170px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 154px);
+            background: white;
+            border: 1px #0D293E solid;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .content-title {
+            text-align: center;
+            color: black;
+            font-size: 48px;
+            font-family: Almarai;
+            font-weight: 400;
+        }
+
+        .content-text {
+            text-align: justify;
+            color: black;
+            font-size: 28px;
+            font-family: DM Sans;
+            font-weight: 400;
+        }
+
+        .divider {
+            width: 100%;
+            border-top: 5px solid #0D293E;
+            margin: 20px 0;
+        }
+
+        .vision-text {
+            color: black;
+            font-size: 32px;
+            font-family: DM Sans;
+            font-weight: 500;
+        }
+
+        .dropdown-container {
+            position: absolute;
+            top: 100px;
+        }
+
+        .dropdown-container.informasi {
+            left: 910px;
+        }
+
+        .dropdown-container.profil {
+            left: 800px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img class="bg-image" src="images/bg.png" alt="Background Image" />
+        <div class="header"></div>
+        <div class="header-text" style="left: 397px; top: 24px;">UNIVERSITAS</div>
+        <div class="header-text" style="left: 397px; top: 68px;">INDONESIA</div>
+        <div class="header-text" style="left: 686px; top: 24px;">LARI</div>
+        <img class="header-logo" src="images/logo.png" alt="Logo" />
+        <div class="header-title">UNLI</div>
+        <div class="content">
+            <div class="content-title">KEGIATAN YANG ADA DI UNLI</div>
+            <div class="divider"></div>
+            <div class="content-text">
+                <p>1. UNLI Fun Run: Acara tahunan yang diadakan oleh universitas untuk menggalang dana bagi amal. Mahasiswa, dosen, dan staf universitas berpartisipasi dalam lomba lari jarak jauh dengan tujuan menyumbangkan hasilnya untuk membantu masyarakat kurang mampu.</p>
+                <p>2. Lomba Lari Antar Fakultas: Kompetisi atletik antar fakultas di mana mahasiswa dari berbagai jurusan bersaing dalam berbagai jenis perlombaan lari, seperti lari cepat, estafet, dan jarak jauh. Ini tidak hanya mempromosikan semangat persaingan sehat tetapi juga membangun rasa solidaritas di antara mahasiswa.</p>
+                <p>3. Kelas Lari Pemula: Program yang ditujukan untuk mahasiswa. Kelas ini dipimpin oleh pelatih profesional atau mahasiswa senior yang berpengalaman dalam lari. Peserta akan mempelajari teknik lari yang benar, program latihan, serta tips untuk mencegah cedera.</p>
+            </div>
+        </div>
+
+    <!-- Tautan JavaScript Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function handleDropdownChange(select) {
+            var selectedValue = select.value;
+            if (selectedValue === "beranda") {
+                window.location.href = "home.html";
+            } else if (selectedValue === "bukti_pendaftaran") {
+                window.location.href = "register.html";
+            } else if (selectedValue === "kegiatan") {
+                window.location.href = "index.html";
+            } else if (selectedValue === "visi_misi") {
+                window.location.href = "vdm.html";
+            } else if (selectedValue === "logout") {
+                window.location.href = "masuk.html";
+            }
+        }
+    </script>
+</body>
+
+</html>

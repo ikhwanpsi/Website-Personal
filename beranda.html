@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        /* Your CSS styles here */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Additional CSS styles for positioning and appearance */
+        /* Please note that inline styles are not recommended for larger projects */
+    </style>
+</head>
+
+<body>
+    <div style="width: 100%; height: 100%; position: relative; background: white">
+        <img style="width: 1641px; height: 1035px; left: -201px; top: -6px; position: absolute"
+            src="images/bg.png" />
+        <div
+            style="width: 705px; height: 52px; left: 367px; top: 571px; position: absolute; text-align: center; color: white; font-size: 40px; font-family: DM Sans; font-weight: 400; word-wrap: break-word">
+            di Portal Penerimaan Mahasiswa Baru <br />Universitas Lari Indonesia</div>
+        <div
+            style="width: 1440px; height: 130px; left: 0px; top: 0px; position: absolute; opacity: 0.60; background: #0D293E">
+        </div>
+        <button onclick="window.location.href = 'pdtr.html';"
+            style="width: 227px; height: 60px; left: 1019px; top: 35px; position: absolute; background: #1E1E1E; border-radius: 30px">
+            </button>
+        </div>
+        <div
+            style="width: 366px; height: 44px; left: 397px; top: 68px; position: absolute; color: white; font-size: 40px; font-family: Almarai; font-weight: 700; word-wrap: break-word">
+            INDONESIA</div>
+        <div
+            style="left: 1046px; top: 49px; position: absolute; color: white; font-size: 30px; font-family: Almarai; font-weight: 700; word-wrap: break-word">
+            Pendaftaran</div>
+        <img style="width: 162px; height: 130px; left: 0px; top: 0px; position: absolute"
+            src="images/logo.png" />
+        <div
+            style="width: 366px; height: 44px; left: 397px; top: 24px; position: absolute; color: white; font-size: 40px; font-family: Almarai; font-weight: 700; word-wrap: break-word">
+            UNIVERSITAS  </div>
+        <div
+            style="width: 110px; height: 44px; left: 686px; top: 24px; position: absolute; color: white; font-size: 40px; font-family: Almarai; font-weight: 700; word-wrap: break-word">
+            LARI  </div>
+        <button onclick="window.location.href = 'belumpunyaakun.html';"
+            style="width: 155px; height: 60px; left: 1269px; top: 35px; position: absolute; background: #1E1E1E; border-radius: 30px">
+        </button>
+        </div>
+        <div    
+            style="left: 1300px; top: 49px; position: absolute; color: white; font-size: 30px; font-family: Almarai; font-weight: 700; word-wrap: break-word">
+            Masuk</div>
+        <div
+            style="width: 683px; height: 71px; left: 378px; top: 476px; position: absolute; text-align: center; color: white; font-size: 64px; font-family: Almarai; font-weight: 700; word-wrap: break-word">
+            SELAMAT DATANG</div>
+        <img style="width: 324px; height: 286px; left: 558px; top: 207px; position: absolute"
+            src="images/logo.png" />
+        <div
+            style="width: 266px; height: 112px; left: 145px; top: 18px; position: absolute; color: #D9D9D9; font-size: 96px; font-family: Almarai; font-weight: 700; word-wrap: break-word">
+            UNLI</div>
+        <div
+            style="width: 108px; height: 0px; left: 378px; top: 11px; position: absolute; transform: rotate(90deg); transform-origin: 0 0; border: 1px white solid">
+        </div>
+        <div style="width: 100%; height: 100%; position: relative; background: #F7A5BC">
+            <!-- Dropdown menu - Informasi -->
+            <div style="position: absolute; top: 100px; left: 910px;">
+                <select class="custom-dropdown" onchange="handleDropdownChange(this)">
+                    <option value="informasi">INFORMASI</option>
+                    <option value="beranda">Beranda</option>
+                    <option value="bukti_pendaftaran">Bukti Pendaftaran</option>
+                    <option value="kegiatan">Kegiatan</option>
+                </select>
+                <div class="dropdown-arrow"></div>
+            </div>
+            <!-- Dropdown menu - Profil -->
+            <div style="position: absolute; top: 100px; left: 800px;">
+                <select class="custom-dropdown" onchange="handleDropdownChange(this)">
+                    <option value="profil">PROFIL</option>
+                    <option value="visi_misi">Visi dan Misi</option>
+                    <option value="logout">Logout</option>
+                </select>
+                <div class="dropdown-arrow"></div>
+            </div>
+        </div>
+    
+        <!-- Tautan JavaScript Bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+        <script>
+            function handleDropdownChange(select) {
+                var selectedValue = select.value;
+                if (selectedValue === "beranda") {
+                    window.location.href = "index.html";
+                } else if (selectedValue === "bukti_pendaftaran") {
+                    window.location.href = "bukti.html";
+                } else if (selectedValue === "kegiatan") {
+                    window.location.href = "kegiatan.html";
+                } else if (selectedValue === "visi_misi") {
+                    window.location.href = "vdm.html";
+                } else if (selectedValue === "logout") {
+                    window.location.href = "masuk.html";
+                }
+            }
+        </script>
+    </body>
+    
+    </html>

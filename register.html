@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrasi Mahasiswa</title>
+    <style>
+        /* Your CSS styles here */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: white; /* Added background color */
+        }
+
+        /* Additional CSS styles for positioning and appearance */
+        /* Please note that inline styles are not recommended for larger projects */
+    </style>
+</head>
+
+<body>
+    <div style="width: 100%; height: 100%; position: relative;">
+        <!-- Background Image -->
+        <img style="width: 1641px; height: 1035px; left: -201px; top: -6px; position: absolute"
+            src="images/bg.png" />
+        <!-- Overlay -->
+        <div
+            style="width: 1440px; height: 130px; left: 0px; top: 0px; position: absolute; opacity: 0.60; background: #0D293E">
+        </div>
+        <!-- Text Elements -->
+        <div
+            style="width: 366px; height: 44px; left: 397px; top: 68px; position: absolute; color: white; font-size: 40px; font-family: Almarai; font-weight: 700; word-wrap: break-word">
+            INDONESIA</div>
+        <div
+            style="width: 366px; height: 44px; left: 397px; top: 24px; position: absolute; color: white; font-size: 40px; font-family: Almarai; font-weight: 700; word-wrap: break-word">
+            UNIVERSITAS  </div>
+        <div
+            style="width: 110px; height: 44px; left: 686px; top: 24px; position: absolute; color: white; font-size: 40px; font-family: Almarai; font-weight: 700; word-wrap: break-word">
+            LARI  </div>
+        <img style="width: 162px; height: 130px; left: 0px; top: 0px; position: absolute"
+            src="images/logo.png" />
+        <div
+            style="width: 266px; height: 112px; left: 145px; top: 18px; position: absolute; color: #D9D9D9; font-size: 96px; font-family: Almarai; font-weight: 700; word-wrap: break-word">
+            UNLI</div>
+        <div
+            style="width: 108px; height: 0px; left: 378px; top: 11px; position: absolute; transform: rotate(90deg); transform-origin: 0 0; border: 1px white solid">
+        </div>
+        <!-- Formulir Pendaftaran Mahasiswa -->
+        <div style="width: 400px; position: absolute; top: 200px; left: 50%; transform: translateX(-50%); background-color: white; padding: 20px; border-radius: 10px;">
+            <h2 style="color: black;">Pendaftaran Mahasiswa Baru</h2>
+            <form id="registration_form" method="post" action="pendaftaran.php" onsubmit="return validateForm()" enctype="multipart/form-data">
+                <label for="nama" style="color: black;">Nama Lengkap:</label><br>
+                <input type="text" id="nama" name="nama" required><br>
+
+                <label for="email" style="color: black;">Email:</label><br>
+                <input type="email" id="email" name="email" required><br>
+
+                <label for="nik" style="color: black;">NIK:</label><br>
+                <input type="text" id="nik" name="nik" required><br>
+
+                <label for="tanggal_lahir" style="color: black;">Tanggal Lahir:</label><br>
+                <input type="date" id="tanggal_lahir" name="tanggal_lahir" required><br>
+
+                <label for="jenis_kelamin" style="color: black;">Jenis Kelamin:</label><br>
+                <input type="radio" id="laki_laki" name="jenis_kelamin" value="Laki-laki" required>
+                <label for="laki_laki" style="color: black;">Laki-laki</label>
+                <input type="radio" id="perempuan" name="jenis_kelamin" value="Perempuan" required>
+                <label for="perempuan" style="color: black;">Perempuan</label><br>
+
+                <label for="agama" style="color: black;">Agama:</label><br>
+                <input type="text" id="agama" name="agama" required><br>
+
+                <label for="nomor_handphone" style="color: black;">Nomor Handphone:</label><br>
+                <input type="text" id="nomor_handphone" name="nomor_handphone" required><br>
+
+                <label for="alamat_rumah" style="color: black;">Alamat Rumah:</label><br>
+                <textarea id="alamat_rumah" name="alamat_rumah" required></textarea><br><br>
+
+                <label for="umur" style="color: black;">Umur:</label><br>
+                <input type="number" id="umur" name="umur" required><br>
+
+                <label for="program_studi" style="color: black;">Program Studi:</label><br>
+                <select id="program_studi" name="program_studi" required>
+                    <option value="">Pilih Program Studi</option>
+                    <option value="Long Run">Long Run</option>
+                    <option value="Sprinter">Sprinter</option>
+                    <!-- Tambahkan pilihan program studi lainnya di sini -->
+                </select><br><br>
+
+                <label for="foto" style="color: black;">Unggah Foto:</label><br>
+                <input type="file" id="foto" name="foto" accept="image/*"><br><br>
+
+                <input type="submit" value="Daftar" id="submit_button">
+            </form>
+            <!-- Pesan Konfirmasi -->
+            <div id="confirmation_message" style="display: none; width: 400px; background-color: white; padding: 20px; border-radius: 10px;">
+                <h2 style="color: black;">Terima Kasih!</h2>
+                <p>Data Anda telah berhasil terdaftar. Berikut adalah bukti pendaftaran:</p>
+                <!-- Tempat untuk menampilkan data yang telah diisi -->
+                <div id="registered_data"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function validateForm() {
+            var form = document.getElementById("registration_form");
+            var isValid = form.checkValidity();
+            if (isValid) {
+                alert("Data yang Anda masukkan telah benar!");
+            }
+            return isValid;
+        }
+
+        // Add event listener for form submission
+        document.getElementById("submit_button").addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent form submission
+            validateForm(); // Validate the form
+            var form = document.getElementById("registration_form");
+            var isValid = form.checkValidity();
+            if (isValid) {
+                // Formulir valid, tampilkan pesan konfirmasi
+                document.getElementById("registration_form").style.display = "none"; // Sembunyikan formulir
+                document.getElementById("confirmation_message").style.display = "block"; // Tampilkan pesan konfirmasi
+                // Tampilkan data yang telah diisi sebelumnya
+                showRegisteredData();
+            }
+        });
+
+        // Function to show registered data
+        function showRegisteredData() {
+            var registeredDataDiv = document.getElementById("registered_data");
+            var formData = new FormData(document.getElementById("registration_form"));
+
+            // Loop through form data and display it
+            for (var pair of formData.entries()) {
+                if (pair[0] === 'foto') {
+                    // If the pair key is 'foto', it's the uploaded image
+                    var file = pair[1];
+                    var reader = new FileReader();
+                    reader.onload = function (event) {
+                        registeredDataDiv.innerHTML += "<img src='" + event.target.result + "' alt='Foto'>";
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    registeredDataDiv.innerHTML += "<p><strong>" + pair[0] + ":</strong> " + pair[1] + "</p>";
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

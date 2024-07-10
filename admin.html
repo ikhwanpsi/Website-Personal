@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .background-image {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            object-fit: cover;
+        }
+
+        .header {
+            width: 100%;
+            height: 130px;
+            position: absolute;
+            top: 0;
+            opacity: 0.60;
+            background: #0D293E;
+            z-index: 1;
+        }
+
+        .logo {
+            width: 162px;
+            height: 130px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
+
+        .title {
+            position: absolute;
+            top: 24px;
+            left: 200px;
+            color: white;
+            font-size: 40px;
+            font-family: Almarai;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .sub-title {
+            position: absolute;
+            top: 24px;
+            left: 600px;
+            color: white;
+            font-size: 40px;
+            font-family: Almarai;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .form-container {
+            width: 400px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+
+        .form-title {
+            text-align: center;
+            font-size: 24px;
+            font-family: Almarai;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-button {
+            width: 100%;
+            padding: 10px;
+            background: #1E1E1E;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-button:hover {
+            background: #333333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="images/bg.png" class="background-image" />
+        <div class="header"></div>
+        <img src="images/logo.png" class="logo" />
+        <div class="title">UNIVERSITAS LARI 
+            INDONESIA</div>
+        <div class="sub-title"></div>
+
+        <div class="form-container">
+            <div class="form-title">Admin Login</div>
+            <form id="loginForm">
+                <input type="text" name="username" placeholder="Username" class="form-input" required />
+                <input type="password" name="password" placeholder="Password" class="form-input" required />
+                <button type="button" class="form-button" onclick="login()">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            const username = document.querySelector('input[name="username"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+
+            if (username === 'user' && password === 'user') {
+                window.location.href = 'adminpage.html';
+            } else {
+                alert('Invalid username or password');
+            }
+        }
+    </script>
+</body>
+
+</html>

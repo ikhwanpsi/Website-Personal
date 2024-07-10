@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .background-image {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            object-fit: cover;
+        }
+
+        .header {
+            width: 100%;
+            height: 130px;
+            position: absolute;
+            top: 0;
+            opacity: 0.60;
+            background: #0D293E;
+            z-index: 1;
+        }
+
+        .logo {
+            width: 162px;
+            height: 130px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
+
+        .title {
+            width: 366px;
+            height: 44px;
+            position: absolute;
+            top: 24px;
+            left: 200px;
+            color: white;
+            font-size: 40px;
+            font-family: Almarai;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .sub-title {
+            width: 110px;
+            height: 44px;
+            position: absolute;
+            top: 24px;
+            left: 600px;
+            color: white;
+            font-size: 40px;
+            font-family: Almarai;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .table-container {
+            width: 80%;
+            margin-top: 150px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 16px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #0D293E;
+            color: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 3;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .button-container {
+            margin-top: 10px;
+        }
+
+        .button-container button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="images/bg.png" class="background-image" />
+        <div class="header"></div>
+        <img src="images/logo.png" class="logo" />
+        <div class="title">UNIVERSITAS LARI INDONESIA</div>
+        <div class="sub-title"></div>
+        
+        <div class="table-container">
+            <h2>AKUN PENDAFTAR</h2>
+            <div class="button-container">
+                <button onclick="akunPendaftar()">Daftar Pendaftaran</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Username</th>
+                        <th>Password</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="anggotaModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+                <label for="nama">Nama:</label>
+                <input type="text" id="nama" name="nama" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+            </div>
+            <button type="button" id="modalButton" onclick="submitForm()">Submit</button>
+        </div>
+    </div>
+
+    <script>
+        function tambahAnggota() {
+            document.getElementById('modalTitle').innerText = 'Tambah Anggota';
+            document.getElementById('modalButton').innerText = 'Submit';
+            document.getElementById('anggotaModal').style.display = 'block';
+            document.getElementById('rowIndex').value = '';
+            document.getElementById('nama').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('confirmPassword').value = '';
+        }
+
+        function editRow(button) {
+            const row = button.parentElement.parentElement;
+            const rowIndex = row.rowIndex - 1; // Subtract 1 to account for header row
+
+
+            document.getElementById('rowIndex').value = rowIndex;
+            document.getElementById('nama').value = row.cells[0].innerText;
+            document.getElementById('email').value = row.cells[1].innerText;
+            document.getElementById('username').value = row.cells[2].innerText;
+            document.getElementById('password').value = row.cells[3].innerText;
+        }
+        function akunPendaftar() {
+            window.location.href = 'adminpage.html';
+        }
+
+        function submitForm() {
+            const rowIndex = document.getElementById('rowIndex').value;
+            const nama = document.getElementById('nama').value;
+            const email = document.getElementById('email').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+
+            const table = document.getElementById('table-body');
+            if (rowIndex === '') {
+                const newRow = table.insertRow();
+                newRow.innerHTML = `
+                    <td>${email}</td>
+                    <td>${nama}</td>
+                    <td>${username}</td>
+                    <td>${'*'.repeat(password.length)}</td>
+                    <td>
+
+                `;
+            } else {
+                const row = table.rows[rowIndex];
+                row.cells[0].innerText = email;
+                row.cells[1].innerText = nama;
+                row.cells[2].innerText = username;
+                row.cells[3].innerText = '*'.repeat(password.length);
+            }
+
+            document.getElementById('anggotaModal').style.display = 'none';
+        }
+
+        function deleteRow(button) {
+            const row = button.parentElement.parentElement;
+            row.parentElement.removeChild(row);
+        }
+
+        function closeModal() {
+            document.getElementById('anggotaModal').style.display = 'none';
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('akunpdtr.php')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('table-body').innerHTML = data;
+                    const rows = document.querySelectorAll('#table-body tr');
+                    rows.forEach((row) => {
+                        const cell = document.createElement('td');
+                        cell.innerHTML = `
+                        `;
+                        row.appendChild(cell);
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+    </script>
+</body>
+
+</html>

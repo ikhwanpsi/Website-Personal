@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <style>
+        /* Gaya CSS yang ada */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .background-image {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            object-fit: cover;
+        }
+
+        .header {
+            width: 100%;
+            height: 130px;
+            position: absolute;
+            top: 0;
+            opacity: 0.60;
+            background: #0D293E;
+            z-index: 1;
+        }
+
+        .logo {
+            width: 162px;
+            height: 130px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
+
+        .title {
+            width: 366px;
+            height: 44px;
+            position: absolute;
+            top: 24px;
+            left: 200px;
+            color: white;
+            font-size: 40px;
+            font-family: Almarai;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .sub-title {
+            width: 110px;
+            height: 44px;
+            position: absolute;
+            top: 24px;
+            left: 600px;
+            color: white;
+            font-size: 40px;
+            font-family: Almarai;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .table-container {
+            width: 80%;
+            margin-top: 150px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 16px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #0D293E;
+            color: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 3;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="images/bg.png" class="background-image" />
+        <div class="header"></div>
+        <img src="images/logo.png" class="logo" />
+        <div class="title">UNIVERSITAS LARI INDONESIA</div>
+        <div class="sub-title"></div>
+        
+        <div class="table-container">
+            <h2>Daftar Pendaftaran</h2>
+            <button onclick="tambahAnggota()">Tambah Anggota</button>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <input type="text" id="search" onkeyup="searchTable()" placeholder="Cari anggota...">
+                <button onclick="pindahAkunPendaftar()">Akun Pendaftar</button>
+            </div>
+            <button onclick="pindahPengumuman()">Diterima</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Email</th>
+                        <th>NIK</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Agama</th>
+                        <th>Nomor Handphone</th>
+                        <th>Alamat Rumah</th>
+                        <th>Umur</th>
+                        <th>Program Studi</th>
+                        <th>Opsi</th>
+                        <th>Pilih</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- Data rows will be added here dynamically -->
+                </tbody>
+            </table>
+        
+            <div id="anggotaModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h2 id="modalTitle">Tambah Anggota</h2>
+                    <input type="hidden" id="rowIndex" name="rowIndex">
+                    <div class="form-group">
+                        <label for="nama">Nama:</label>
+                        <input type="text" id="nama" name="nama" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nik">NIK:</label>
+                        <input type="text" id="nik" name="nik" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tanggalLahir">Tanggal Lahir:</label>
+                        <input type="date" id="tanggalLahir" name="tanggalLahir" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="jenisKelamin">Jenis Kelamin:</label>
+                        <select id="jenisKelamin" name="jenisKelamin" required>
+                            <option value="Laki-laki">Laki-laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="agama">Agama:</label>
+                        <input type="text" id="agama" name="agama" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nomorHandphone">Nomor Handphone:</label>
+                        <input type="tel" id="nomorHandphone" name="nomorHandphone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="alamatRumah">Alamat Rumah:</label>
+                        <input type="text" id="alamatRumah" name="alamatRumah" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="umur">Umur:</label>
+                        <input type="number" id="umur" name="umur" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="programStudi">Program Studi:</label>
+                        <input type="text" id="programStudi" name="programStudi" required>
+                    </div>
+                    <button onclick="submitAnggotaForm()">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script>
+        // Fungsi untuk mengisi tabel dengan data
+        function isiTabel(data) {
+            const tableBody = document.getElementById('table-body');
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+
+                for (const key in row) {
+                    const td = document.createElement('td');
+                    td.textContent = row[key];
+                    tr.appendChild(td);
+                }
+
+                const tdOptions = document.createElement('td');
+                tdOptions.innerHTML = `
+                    <button onclick="hapusAnggota(this)">Hapus</button>
+                    <button onclick="editAnggota(this)">Edit</button>
+                    <button onclick="cetakKartu(this)">Cetak</button>
+                `;
+                tr.appendChild(tdOptions);
+
+                const tdCheckbox = document.createElement('td');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                tdCheckbox.appendChild(checkbox);
+                tr.appendChild(tdCheckbox);
+
+                tableBody.appendChild(tr);
+            });
+        }
+
+        // Contoh data untuk mengisi tabel
+        const data = [
+            { nama: 'John Doe', email: 'john@example.com', nik: '123456789', tanggalLahir: '01-01-1990', jenisKelamin: 'Laki-laki', agama: 'Kristen', nomorHandphone: '08123456789', alamatRumah: 'Jl. Merdeka No. 1', umur: '30', programStudi: 'Teknik Informatika' },
+            // Tambahkan data lainnya di sini
+        ];
+
+        isiTabel(data);
+
+        // Fungsi untuk memindahkan data ke pengumuman
+        function pindahPengumuman() {
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            var selectedRows = [];
+
+            checkboxes.forEach(function(checkbox) {
+                var row = checkbox.parentNode.parentNode;
+                var nama = row.cells[0].innerText;
+                var email = row.cells[1].innerText;
+                var nik = row.cells[2].innerText;
+                var tanggalLahir = row.cells[3].innerText;
+                var jenisKelamin = row.cells[4].innerText;
+                var agama = row.cells[5].innerText;
+                var nomorHandphone = row.cells[6].innerText;
+                var alamatRumah = row.cells[7].innerText;
+                var umur = row.cells[8].innerText;
+                var programStudi = row.cells[9].innerText;
+
+                selectedRows.push({
+                    nama: nama,
+                    email: email,
+                    nik: nik,
+                    tanggalLahir: tanggalLahir,
+                    jenisKelamin: jenisKelamin,
+                    agama: agama,
+                    nomorHandphone: nomorHandphone,
+                    alamatRumah: alamatRumah,
+                    umur: umur,
+                    programStudi: programStudi
+                });
+            });
+
+            fetch('save_pengumuman.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(selectedRows)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Pengumuman berhasil disimpan', data);
+                window.location.href = 'pengumuman.html';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // Fungsi untuk memindahkan ke halaman akun pendaftar
+        function pindahAkunPendaftar() {
+            window.location.href = 'akunpdtr.html';
+        }
+
+        // Fungsi untuk mencetak kartu
+        function cetakKartu(button) {
+            const { jsPDF } = window.jspdf;
+
+            var row = button.parentNode.parentNode;
+            var nama = row.cells[0].innerText;
+            var email = row.cells[1].innerText;
+            var nik = row.cells[2].innerText;
+            var tanggalLahir = row.cells[3].innerText;
+            var jenisKelamin = row.cells[4].innerText;
+            var agama = row.cells[5].innerText;
+            var nomorHandphone = row.cells[6].innerText;
+            var alamatRumah = row.cells[7].innerText;
+            var umur = row.cells[8].innerText;
+            var programStudi = row.cells[9].innerText;
+
+            var doc = new jsPDF();
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(20);
+            doc.text(105, 20, 'UNIVERSITAS LARI INDONESIA', { align: 'center' });
+
+            doc.setFontSize(16);
+            doc.text(20, 40, 'Kartu Pendaftar');
+
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'normal');
+
+            doc.text(20, 50, 'Nama: ' + nama);
+            doc.text(20, 60, 'Email: ' + email);
+            doc.text(20, 70, 'NIK: ' + nik);
+            doc.text(20, 80, 'Tanggal Lahir: ' + tanggalLahir);
+            doc.text(20, 90, 'Jenis Kelamin: ' + jenisKelamin);
+            doc.text(20, 100, 'Agama: ' + agama);
+            doc.text(20, 110, 'Nomor Handphone: ' + nomorHandphone);
+            doc.text(20, 120, 'Alamat Rumah: ' + alamatRumah);
+            doc.text(20, 130, 'Umur: ' + umur);
+            doc.text(20, 140, 'Program Studi: ' + programStudi);
+
+            doc.setDrawColor(0);
+            doc.setLineWidth(1);
+            doc.line(20, 150, 190, 150);
+
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'italic');
+            doc.text(20, 160, 'Terima kasih telah menjadi bagian dari Universitas Lari Indonesia.');
+
+            doc.save(`kartu_${row.cells[0].innerText}.pdf`);
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('adminpage.php')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('table-body').innerHTML = data;
+                    const rows = document.querySelectorAll('#table-body tr');
+                    rows.forEach((row) => {
+                        const cell = document.createElement('td');
+                        cell.innerHTML = `
+                            <button onclick="hapusAnggota(this)">Hapus</button>
+                            <button onclick="editAnggota(this)">Edit</button>
+                            <button onclick="cetakKartu(this)">Cetak</button>
+                        `;
+                        row.appendChild(cell);
+                        
+                        const pilihCell = document.createElement('td');
+                        pilihCell.innerHTML = '<input type="checkbox">';
+                        row.appendChild(pilihCell);
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+    </script>
+</body>
+</html>
